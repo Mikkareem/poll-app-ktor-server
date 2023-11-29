@@ -1,0 +1,19 @@
+package com.techullurgy.pollapp.exceptions
+
+import com.techullurgy.pollapp.utils.ErrorCode
+
+open class ExceptionWithErrorCode(errorCode: ErrorCode): Exception(errorCode.message)
+
+class UserNotFoundException: ExceptionWithErrorCode(ErrorCode.USER_NOT_EXISTS)
+class GroupNotFoundException: ExceptionWithErrorCode(ErrorCode.GROUP_NOT_EXISTS)
+
+class InvalidUsernameException: ExceptionWithErrorCode(ErrorCode.INVALID_USERNAME)
+class InvalidUserPasswordException: ExceptionWithErrorCode(ErrorCode.INVALID_PASSWORD)
+class InvalidUserAgeException: ExceptionWithErrorCode(ErrorCode.INVALID_AGE)
+class InvalidPollNameException: ExceptionWithErrorCode(ErrorCode.INVALID_POLL_NAME)
+class InvalidPollDescriptionException: ExceptionWithErrorCode(ErrorCode.INVALID_POLL_DESCRIPTION)
+
+class InvalidRequestException: ExceptionWithErrorCode(ErrorCode.INVALID_REQUEST)
+
+class DatabaseException: Exception(ErrorCode.DATABASE_ERROR.message)
+class AuthenticationException: Exception(ErrorCode.AUTHENTICATION_FAILED.message)
