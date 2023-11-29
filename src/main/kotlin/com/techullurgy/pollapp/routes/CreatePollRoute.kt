@@ -1,7 +1,6 @@
 package com.techullurgy.pollapp.routes
 
 import com.techullurgy.pollapp.auth.JwtConfiguration
-import com.techullurgy.pollapp.data.dao.PollsDao
 import com.techullurgy.pollapp.domain.usecases.CreatePollUseCase
 import com.techullurgy.pollapp.network.models.AssignablePoll
 import com.techullurgy.pollapp.network.responses.CreatePollSuccessResponse

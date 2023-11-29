@@ -9,9 +9,11 @@ import com.techullurgy.pollapp.plugins.dbQuery
 import com.techullurgy.pollapp.plugins.tryInTransaction
 import com.techullurgy.pollapp.utils.ErrorCode
 import com.techullurgy.pollapp.utils.ServiceResult
-import kotlinx.serialization.Serializable
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.innerJoin
+import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.select
 
 interface PollsDao {
     suspend fun create(poll: AppPoll): ServiceResult<Long>

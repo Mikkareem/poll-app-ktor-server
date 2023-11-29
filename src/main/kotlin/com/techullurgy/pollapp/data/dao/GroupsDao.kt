@@ -12,7 +12,6 @@ import com.techullurgy.pollapp.utils.ServiceResult
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.transactions.TransactionManager
 
 interface GroupsDao {
     suspend fun create(name: String, userId: Long): ServiceResult<Long>

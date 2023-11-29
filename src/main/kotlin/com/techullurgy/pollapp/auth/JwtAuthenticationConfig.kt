@@ -1,9 +1,5 @@
 package com.techullurgy.pollapp.auth
 
-import com.auth0.jwt.JWT
-import com.auth0.jwt.impl.JWTParser
-import com.auth0.jwt.interfaces.JWTPartsParser
-import com.auth0.jwt.interfaces.JWTVerifier
 import com.techullurgy.pollapp.data.dao.SecurityDao
 import io.ktor.http.*
 import io.ktor.server.auth.*
