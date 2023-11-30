@@ -107,8 +107,6 @@ internal class GroupsDaoImpl: GroupsDao {
         }
     }
 
-
-
     override suspend fun getAllAssignableUsers(groupId: Long): ServiceResult<List<AppUser>> {
         return try {
             tryInTransaction {

@@ -18,6 +18,8 @@ fun Application.configureRouting() {
             route("/poll/{pollId}") { getPollById() }
 
             route("/group/create") { createGroup() }
+            route("/group/add") { addUserToGroup() }
+            route("/group/{id}") { getGroupMembers() }
 
             route("/logout") { logout() }
         }

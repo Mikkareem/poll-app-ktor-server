@@ -12,7 +12,7 @@ class JwtConfiguration {
             .withClaim(CLAIM_USER_ID, user.id)
             .withAudience(AUDIENCE)
             .withIssuer(ISSUER)
-            .withExpiresAt(Instant.ofEpochMilli(System.currentTimeMillis() + 5*60*1000))
+            .withExpiresAt(Instant.ofEpochMilli(System.currentTimeMillis() + 30*60*1000))
             .sign(Algorithm.HMAC256(SECRET))
     }
 
