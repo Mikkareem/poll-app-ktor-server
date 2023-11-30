@@ -1,6 +1,7 @@
 package com.techullurgy.pollapp.network.models
 
 import com.techullurgy.pollapp.domain.models.AppPoll
+import com.techullurgy.pollapp.network.responses.NonAnsweredPollResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,4 +17,6 @@ data class Poll(
         description = description,
         questions = questions.map { it.toAppPollQuestion() }
     )
+
+    fun toNonAnsweredPollResponse(): NonAnsweredPollResponse = NonAnsweredPollResponse(poll = this)
 }

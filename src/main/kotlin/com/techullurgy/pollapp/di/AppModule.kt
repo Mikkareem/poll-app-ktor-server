@@ -19,7 +19,7 @@ val appModule = module {
     single { CreatePollUseCase(get()) }
     single { AssignPollUseCase(get()) }
     single { GetPollByIdUseCase(get()) }
-    single { GetAssignedPollsForUserUseCase(get()) }
+    single { GetAssignedPollsForUserUseCase(get(), get()) }
     single { CreateGroupUseCase(get()) }
     single { AddMemberToGroupUseCase(get()) }
     single { GetGroupMembersUseCase(get()) }

@@ -15,6 +15,8 @@ interface PollAnswersDao {
     suspend fun answered(answeredAppPoll: AnsweredAppPoll, userId: Long): ServiceResult<Boolean>
 
     suspend fun getAnsweredPollForUser(userId: Long, pollId: Long): ServiceResult<AnsweredAppPoll>
+
+    suspend fun isUserAnsweredThePoll(userId: Long, pollId: Long): ServiceResult<Boolean>
 }
 
 internal class PollAnswersDaoImpl(
@@ -70,6 +72,17 @@ internal class PollAnswersDaoImpl(
                         answers = answers
                     )
                 )
+            }
+        } catch (e: ExposedSQLException) {
+            ServiceResult.Failure(ErrorCode.DATABASE_ERROR)
+        }
+    }
+
+    override suspend fun isUserAnsweredThePoll(userId: Long, pollId: Long): ServiceResult<Boolean> {
+        return try {
+            dbQuery {
+                val count = PollAnswersEntity.select { (PollAnswersEntity.pollId eq pollId) and (PollAnswersEntity.attenderId eq userId) }.count()
+                ServiceResult.Success(count > 0)
             }
         } catch (e: ExposedSQLException) {
             ServiceResult.Failure(ErrorCode.DATABASE_ERROR)

@@ -16,7 +16,8 @@ fun Route.getAssignedPollsForUser() {
     get {
         val principal = call.principal<JWTPrincipal>()!!
         val currentUser = principal.payload.claims[JwtConfiguration.CLAIM_USER_ID].toString().toLong()
-        val assignedPolls = getAssignedPollsForUserUseCase(userId = currentUser).data().map { it.toPoll() }
+        val assignedPolls = getAssignedPollsForUserUseCase(userId = currentUser)
+
         call.respond(message = assignedPolls, status = HttpStatusCode.OK)
     }
 }
