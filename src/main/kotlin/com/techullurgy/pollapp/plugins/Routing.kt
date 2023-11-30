@@ -15,6 +15,7 @@ fun Application.configureRouting() {
             route("/polls/assigned") { getAssignedPollsForUser() }
             route("/poll/create") { createPoll() }
             route("/poll/assign") { assignPoll() }
+            route("/poll/submit") { submitPollAnswers() }
             route("/poll/{pollId}") { getPollById() }
 
             route("/group/create") { createGroup() }
