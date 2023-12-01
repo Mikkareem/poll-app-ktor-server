@@ -21,6 +21,7 @@ fun Application.configureRouting() {
             route("/group/create") { createGroup() }
             route("/group/add") { addUserToGroup() }
             route("/group/{id}") { getGroupMembers() }
+            route("/groups") { getUserGroups() }
 
             route("/logout") { logout() }
         }

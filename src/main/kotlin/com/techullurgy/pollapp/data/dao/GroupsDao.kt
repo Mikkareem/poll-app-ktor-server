@@ -19,6 +19,7 @@ interface GroupsDao {
     suspend fun getGroupById(id: Long): ServiceResult<AppGroup>
     suspend fun addUserToGroup(groupId: Long, userId: Long): ServiceResult<Boolean>
     suspend fun getAllAssignableUsers(groupId: Long): ServiceResult<List<AppUser>>
+    suspend fun getUserGroups(userId: Long): ServiceResult<List<AppGroup>>
 }
 
 internal class GroupsDaoImpl: GroupsDao {
@@ -50,7 +51,7 @@ internal class GroupsDaoImpl: GroupsDao {
         data class TempGroup(val id: Long, val name: String, val user: AppUser)
 
         return try {
-            dbQuery {
+            tryInTransaction {
                 val tempGroup = GroupEntity
                     .innerJoin(UserEntity)
                     .select { GroupEntity.id eq id }
@@ -65,7 +66,7 @@ internal class GroupsDaoImpl: GroupsDao {
                             )
                         )
                     }
-                    .singleOrNull() ?: return@dbQuery ServiceResult.Failure(ErrorCode.GROUP_NOT_EXISTS)
+                    .singleOrNull() ?: return@tryInTransaction ServiceResult.Failure(ErrorCode.GROUP_NOT_EXISTS)
 
 
                 val members = GroupMembersEntity
@@ -122,6 +123,24 @@ internal class GroupsDaoImpl: GroupsDao {
                     }
 
                 ServiceResult.Success(groupMembers)
+            }
+        } catch (e: ExposedSQLException) {
+            ServiceResult.Failure(ErrorCode.DATABASE_ERROR)
+        }
+    }
+
+    override suspend fun getUserGroups(userId: Long): ServiceResult<List<AppGroup>> {
+        return try {
+            dbQuery {
+                val groupIds = GroupMembersEntity
+                    .slice(GroupMembersEntity.group)
+                    .select { GroupMembersEntity.user eq userId }
+                    .map { it[GroupMembersEntity.group] }
+
+                val appGroups = groupIds.map {
+                    getGroupById(it).data()
+                }
+                ServiceResult.Success(appGroups)
             }
         } catch (e: ExposedSQLException) {
             ServiceResult.Failure(ErrorCode.DATABASE_ERROR)

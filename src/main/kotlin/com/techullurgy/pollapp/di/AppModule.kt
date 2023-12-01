@@ -24,4 +24,5 @@ val appModule = module {
     single { AddMemberToGroupUseCase(get()) }
     single { GetGroupMembersUseCase(get()) }
     single { SubmitPollAnswersUseCase(get()) }
+    single { GetUserGroupsUseCase(get()) }
 }
